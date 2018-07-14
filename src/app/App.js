@@ -27,6 +27,23 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   );
 };
 
+const PublicRoute = ({ component: Component, authed, ...rest}) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        authed === false ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: '/mystuff', state: {from: props.location}}}
+          />
+        )
+      }
+    />
+  );
+};
+
 class App extends Component {
   state={
     authed: false,
@@ -46,6 +63,11 @@ class App extends Component {
                     path="/allthestuff"
                     authed={this.state.authed}
                     component={AllTheStuff}
+                  />
+                  <PublicRoute
+                    path="/register"
+                    authed={this.state.authed}
+                    component={Register}
                   />
                 </Switch>
               </div>
