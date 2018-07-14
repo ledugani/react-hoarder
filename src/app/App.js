@@ -5,9 +5,9 @@ import firebase from 'firebase';
 import './App.css';
 
 import AllTheStuff from '../components/AllTheStuff/AllTheStuff';
-// import Items from '../components/Items/Items';
+import Items from '../components/Items/Items';
 import Login from '../components/Login/Login';
-// import MyStuff from '../components/MyStuff/MyStuff';
+import MyStuff from '../components/MyStuff/MyStuff';
 import Navbar from '../components/Navbar/Navbar';
 import Register from '../components/Register/Register';
 import fbConnection from '../firebaseRequests/connection';
@@ -66,6 +66,10 @@ class App extends Component {
     this.removeListener();
   }
 
+  runAway = () => {
+    this.setState({authed: false});
+  }
+
   render() {
     return (
       <div className="App">
@@ -73,6 +77,7 @@ class App extends Component {
           <div>
             <Navbar
               authed={this.state.authed}
+              runAway={this.runAway}
             />
             <div className="container">
               <div className="row">
@@ -82,6 +87,16 @@ class App extends Component {
                     path="/allthestuff"
                     authed={this.state.authed}
                     component={AllTheStuff}
+                  />
+                  <PrivateRoute
+                    path="/mystuff"
+                    authed={this.state.authed}
+                    component={MyStuff}
+                  />
+                  <PrivateRoute
+                    path="/mystuff/:id"
+                    authed={this.state.authed}
+                    component={Items}
                   />
                   <PublicRoute
                     path="/register"
