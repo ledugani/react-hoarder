@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
+import firebase from 'firebase';
 
 import './App.css';
 
 import AllTheStuff from '../components/AllTheStuff/AllTheStuff';
-// import Items from '../components/Items/Items';
+import Items from '../components/Items/Items';
 import Login from '../components/Login/Login';
-// import MyStuff from '../components/MyStuff/MyStuff';
+import MyStuff from '../components/MyStuff/MyStuff';
 import Navbar from '../components/Navbar/Navbar';
 import Register from '../components/Register/Register';
 import fbConnection from '../firebaseRequests/connection';
@@ -51,12 +52,33 @@ class App extends Component {
     authed: false,
   }
 
+  componentDidMount () {
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({authed: true});
+      } else {
+        this.setState({authed: false});
+      }
+    });
+  }
+
+  componentWillUnmount () {
+    this.removeListener();
+  }
+
+  runAway = () => {
+    this.setState({authed: false});
+  }
+
   render() {
     return (
       <div className="App">
         <BrowserRouter>
           <div>
-            <Navbar />
+            <Navbar
+              authed={this.state.authed}
+              runAway={this.runAway}
+            />
             <div className="container">
               <div className="row">
                 <Switch>
@@ -65,6 +87,16 @@ class App extends Component {
                     path="/allthestuff"
                     authed={this.state.authed}
                     component={AllTheStuff}
+                  />
+                  <PrivateRoute
+                    path="/mystuff"
+                    authed={this.state.authed}
+                    component={MyStuff}
+                  />
+                  <PrivateRoute
+                    path="/mystuff/:id"
+                    authed={this.state.authed}
+                    component={Items}
                   />
                   <PublicRoute
                     path="/register"
