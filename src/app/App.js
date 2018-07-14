@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Route, BrowserRouter, Switch} from 'react-router-dom';
+import {Route, BrowserRouter, Redirect, Switch} from 'react-router-dom';
 
-// import AllTheStuff from '../components/AllTheStuff/AllTheStuff';
+import AllTheStuff from '../components/AllTheStuff/AllTheStuff';
 // import Items from '../components/Items/Items';
 // import Login from '../components/Login/Login';
 // import MyStuff from '../components/MyStuff/MyStuff';
@@ -10,7 +10,28 @@ import Register from '../components/Register/Register';
 
 import './App.css';
 
+const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        authed === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: '/login', state: {from: props.location}}}
+          />
+        )
+      }
+    />
+  );
+};
+
 class App extends Component {
+  state={
+    authed: false,
+  }
+
   render() {
     return (
       <div className="App">
@@ -21,6 +42,11 @@ class App extends Component {
               <div className="row">
                 <Switch>
                   <Route path="/" exact component={Register} />
+                  <PrivateRoute
+                    path="/allthestuff"
+                    authed={this.state.authed}
+                    component={AllTheStuff}
+                  />
                 </Switch>
               </div>
             </div>
