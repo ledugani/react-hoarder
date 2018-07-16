@@ -1,0 +1,52 @@
+{
+  "item0" : {
+    "dateTime" : 1531090973286,
+    "items" : {
+      "item1" : 2,
+      "item2" : 2,
+      "item4" : 2
+    },
+    "uid" : "QFNsNBdTRwRT6Xl9mAjVR00BWq22"
+  },
+  "item1" : {
+    "dateTime" : 1511090973283,
+    "items" : {
+      "item1" : 3,
+      "item2" : 2,
+      "item3" : 1,
+      "item4" : 6
+    },
+    "uid" : "12345"
+  },
+  "item2" : {
+    "dateTime" : 1525090973289,
+    "items" : {
+      "item9" : 1,
+      "item8" : 22
+    },
+    "uid" : "QFNsNBdTRwRT6Xl9mAjVR00BWq22"
+  },
+  "item3" : {
+    "dateTime" : 1523090972286,
+    "items" : {
+      "item4" : 2,
+      "item9" : 1
+    },
+    "uid" : "12345"
+  },
+  "item4" : {
+    "dateTime" : 1521090963286,
+    "items" : {
+      "item1" : 1,
+      "item2" : 2,
+      "item3" : 3,
+      "item4" : 4,
+      "item5" : 5,
+      "item6" : 6,
+      "item7" : 7,
+      "item8" : 8,
+      "item9" : 9
+    },
+    "uid" : "QFNsNBdTRwRT6Xl9mAjVR00BWq22"
+  }
+}
